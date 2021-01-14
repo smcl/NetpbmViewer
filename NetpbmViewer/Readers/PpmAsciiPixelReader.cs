@@ -6,7 +6,7 @@ namespace NetpbmViewer.Readers
 {
     public class PpmAsciiPixelReader : INetpbmPixelReader
     {
-        private int _colorMax;
+        private double _colorMax;
 
         public void SetColorMax(Stream stream)
         {
