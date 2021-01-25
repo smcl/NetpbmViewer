@@ -1,9 +1,9 @@
-﻿using NetpbmViewer.Readers;
+﻿using Feep.Readers;
 using SkiaSharp;
 using System;
 using System.IO;
 
-namespace NetpbmViewer
+namespace Feep
 {
     public static class NetpbmFile
     {

@@ -1,7 +1,7 @@
 ﻿using SkiaSharp;
 using System.IO;
 
-namespace NetpbmViewer.Readers
+namespace Feep.Readers
 {
     public interface INetpbmPixelReader
     {

@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace NetpbmViewer.Readers
+namespace Feep.Readers
 {
     public class PbmAsciiPixelReader : INetpbmPixelReader
     {

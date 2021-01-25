@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace NetpbmViewer
+namespace Feep
 {
     /// <summary>
     /// Extension methods which simplify retrieving the next digit, byte, short or int from 

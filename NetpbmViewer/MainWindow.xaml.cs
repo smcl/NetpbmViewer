@@ -1,4 +1,4 @@
-﻿using NetpbmViewer;
+﻿using Feep;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NetpbmViewer
+namespace Feep
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -28,7 +28,7 @@ namespace NetpbmViewer
             var args = Environment.GetCommandLineArgs();
             var filename = args != null && args.Length > 1
                 ? args[1]
-                : @"C:\Users\Sean\source\repos\raytrace\j.pbm";
+                : @"C:\Users\Sean\source\repos\raytrace\t.ppm";
 
             var shite = NetpbmFile.Process(filename);
             var writeableBitmap = new WriteableBitmap(shite.Width, shite.Height, 96, 96, PixelFormats.Bgra32, BitmapPalettes.Halftone256Transparent);
