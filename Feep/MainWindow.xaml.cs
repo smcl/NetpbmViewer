@@ -2,6 +2,7 @@
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,11 @@ namespace Feep
         {
             InitializeComponent();
             var args = Environment.GetCommandLineArgs();
-            var filename = args != null && args.Length > 1
-                ? args[1]
-                : @"C:\Users\Sean\source\repos\raytrace\t.ppm";
+            using var fileStream = args != null && args.Length > 1
+                ? GetFileStream(args[1])
+                : GetFeepStream();
 
-            var shite = NetpbmFile.Process(filename);
+            var shite = NetpbmFile.Process(fileStream);
             var writeableBitmap = new WriteableBitmap(shite.Width, shite.Height, 96, 96, PixelFormats.Bgra32, BitmapPalettes.Halftone256Transparent);
             DisplayBitmap(shite, writeableBitmap);
             Image.Source = writeableBitmap;
@@ -62,25 +63,44 @@ namespace Feep
             using (var surface = SKSurface.Create(skImageInfo, writeableBitmap.BackBuffer))
             {
                 SKCanvas canvas = surface.Canvas;
-                //canvas.Clear(new SKColor(130, 130, 130));
-                //canvas.DrawText("SkiaSharp in Wpf!", 50, 200, new SKPaint() { Color = new SKColor(0, 0, 0), TextSize = 100 });
-
-                //var args = Environment.GetCommandLineArgs();
-                //var argsString = args != null && args.Any()
-                //    ? string.Join("~~~", args)
-                //    : "No args provided";
-
-                //canvas.DrawText(argsString, new SKPoint(50, 500), new SKPaint(new SKFont(SKTypeface.FromFamilyName("Microsoft YaHei UI")))
-                //{
-                //    Color = new SKColor(0, 0, 0),
-                //    TextSize = 20
-                //});
-
                 canvas.DrawBitmap(image, new SKPoint(0, 0));
             }
 
             writeableBitmap.AddDirtyRect(new Int32Rect(0, 0, width, height));
             writeableBitmap.Unlock();
+        }
+
+        private static Stream GetFileStream(string fileName)
+        {
+            return new FileStream(fileName, FileMode.Open);
+        }
+
+        private static Stream GetFeepStream()
+        {
+            var feepString = @"P2
+12 14
+15
+0  0  0  0  0  0  0  0  0  0  0  0
+0  5  5  5  5  0  0  7  7  7  7  0
+0  5  0  0  0  0  0  7  0  0  0  0
+0  5  5  5  0  0  0  7  7  7  0  0
+0  5  0  0  0  0  0  7  0  0  0  0
+0  5  0  0  0  0  0  7  7  7  7  0
+0  0  0  0  0  0  0  0  0  0  0  0
+0  0  0  0  0  0  0  0  0  0  0  0
+0 11 11 11 11  0  0 15 15 15 15  0
+0 11  0  0  0  0  0 15  0  0 15  0
+0 11 11 11  0  0  0 15 15 15 15  0
+0 11  0  0  0  0  0 15  0  0  0  0
+0 11 11 11 11  0  0 15  0  0  0  0
+0  0  0  0  0  0  0  0  0  0  0  0";
+
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(feepString);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }

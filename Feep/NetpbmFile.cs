@@ -7,10 +7,8 @@ namespace Feep
 {
     public static class NetpbmFile
     {
-        public static SKBitmap Process(string fileName)
+        public static SKBitmap Process(Stream stream)
         {
-            using var stream = new FileStream(fileName, FileMode.Open);
-
             var reader = RetrievePixelReader(stream);
             var width = stream.ReadNextInt();
             var height = stream.ReadNextInt();
