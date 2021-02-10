@@ -9,4 +9,7 @@ Quick-n-dirty viewer for .pbm, .pgm and .ppm files. Uses WPF and SkiaSharp with 
 - zoom functionality
 - color picker to adjust the background in case of a white image
 - align the displayed image better (left margin skinny, right margin huge)
-- pipe image from stdin if no file arg provided
+- option to pipe image from stdin (`--` or `-stdin`?)
+- when parse failure, show an error message ("failed to open xxx.ppm", etc)
+- when parse failure, show a *useful* error message ("failed to open xxx.ppm, error on line 32, column 5, expected blah")
+- filename in title
